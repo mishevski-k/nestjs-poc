@@ -16,6 +16,7 @@ import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
 import { ValidationPipe } from '../../core/pipes/validation.pipe';
 import { RolesGuard } from '../../core/guards/roles.guard';
+import { Roles } from '../../core/decorators/roles.decorator';
 
 @Controller('cats')
 @UseGuards(RolesGuard)
@@ -40,6 +41,7 @@ export class CatsController {
   }
 
   @Post()
+  @Roles(['admin'])
   async create(
     @Body(new ValidationPipe()) createCatDto: CreateCatDto,
   ): Promise<any> {

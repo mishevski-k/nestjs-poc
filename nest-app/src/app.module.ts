@@ -6,6 +6,8 @@ import {
 } from '@nestjs/common';
 import { CatsModule } from './domains/cats/cats.module';
 import { LoggerMiddleware } from './core/middlewares/logger.middleware';
+import { RolesGuard } from './core/guards/roles.guard';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [CatsModule],
@@ -15,6 +17,12 @@ import { LoggerMiddleware } from './core/middlewares/logger.middleware';
   //     useClass: AllExceptionsFilter,
   //   },
   // ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): any {
