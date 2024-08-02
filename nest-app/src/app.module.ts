@@ -14,7 +14,7 @@ import { ConfigModule } from '@nestjs/config';
   imports: [
     CatsModule,
     ConfigModule.forRoot({
-      envFilePath: './config/.env',
+      envFilePath: './config/config.env',
     }),
   ],
   // providers: [
