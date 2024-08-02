@@ -8,9 +8,15 @@ import { CatsModule } from './domains/cats/cats.module';
 import { LoggerMiddleware } from './core/middlewares/logger.middleware';
 import { RolesGuard } from './core/guards/roles.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [CatsModule],
+  imports: [
+    CatsModule,
+    ConfigModule.forRoot({
+      envFilePath: './config/.env',
+    }),
+  ],
   // providers: [
   //   {
   //     provide: APP_FILTER,
