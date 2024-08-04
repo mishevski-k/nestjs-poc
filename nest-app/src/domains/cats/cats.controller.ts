@@ -9,6 +9,7 @@ import {
   Post,
   Put,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
@@ -16,9 +17,12 @@ import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
 import { ValidationPipe } from '../../core/pipes/validation.pipe';
 import { RolesGuard } from '../../core/guards/roles.guard';
+import { Roles } from '../../core/decorators/roles.decorator';
+import { LoggingInterceptor } from '../../core/interceptors/logging.interceptor';
 
 @Controller('cats')
 @UseGuards(RolesGuard)
+@UseInterceptors(LoggingInterceptor)
 export class CatsController {
   constructor(private catsService: CatsService) {}
 
@@ -40,6 +44,7 @@ export class CatsController {
   }
 
   @Post()
+  @Roles(['admin'])
   async create(
     @Body(new ValidationPipe()) createCatDto: CreateCatDto,
   ): Promise<any> {
