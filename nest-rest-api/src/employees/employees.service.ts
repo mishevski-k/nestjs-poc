@@ -26,7 +26,7 @@ export class EmployeesService {
     return this.databaseService.employee.findUnique({
       where: {
         id,
-      }
+      },
     });
   }
 
